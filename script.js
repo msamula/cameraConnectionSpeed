@@ -50,6 +50,8 @@ async function fetchImage(ip, token, imgID)
 
     end = new Date();
     console.log(end.getTime() - start.getTime() + ' ms [FETCH IMAGE]');
+
+    await fetchImage(ip, token, imgID);
 }
 
 function getImg(ip, token)
@@ -68,7 +70,10 @@ function getImg(ip, token)
         image.src = URL.createObjectURL(this.response);
 
         end = new Date();
-        console.log(end.getTime()-start.getTime() + ' ms [GET IMAGE]');
+        let time = end.getTime()-start.getTime();
+        console.log(time + ' ms [GET IMAGE]');
+
+        getImg(ip,token);
     }
 
     xmlHttp.send( null );
@@ -78,7 +83,8 @@ function getImg(ip, token)
 //MAIN
 
 
-let hertz = 60;
+//let hertz = 60;
+
 let ipAddress = '192.168.3.20'; //'192.168.3.20' 'localhost:8080'
 
 let token = getToken(ipAddress,'irsxApp', 'MnrY2L86pEQr53%216' /*MnrY2L86pEQr53!6*/, 'administrator', 'administrator');
@@ -88,6 +94,11 @@ let token = getToken(ipAddress,'irsxApp', 'MnrY2L86pEQr53%216' /*MnrY2L86pEQr53!
      fetchImage(ipAddress,token.accessToken, 'image');
 }, 1000/hertz);*/
 
-setInterval(  () => {
-    getImg(ipAddress,token.accessToken);
-}, 1000/hertz);
+/*setInterval(  () => {
+     getImg(ipAddress,token.accessToken, 'image');
+}, 1000/hertz);*/
+
+
+getImg(ipAddress,token.accessToken);
+//fetchImage(ipAddress,token.accessToken, 'image');
+
