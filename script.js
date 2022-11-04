@@ -82,22 +82,9 @@ function getImg(ip, token)
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //MAIN
 
-
-//let hertz = 60;
-
 let ipAddress = '192.168.3.20'; //'192.168.3.20' 'localhost:8080'
 
 let token = getToken(ipAddress,'irsxApp', 'MnrY2L86pEQr53%216' /*MnrY2L86pEQr53!6*/, 'administrator', 'administrator');
-
-
-/*setInterval(  () => {
-     fetchImage(ipAddress,token.accessToken, 'image');
-}, 1000/hertz);*/
-
-/*setInterval(  () => {
-     getImg(ipAddress,token.accessToken, 'image');
-}, 1000/hertz);*/
-
 
 getImg(ipAddress,token.accessToken);
 //fetchImage(ipAddress,token.accessToken, 'image');
