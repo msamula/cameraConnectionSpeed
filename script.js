@@ -68,7 +68,9 @@ function getImg(ip, token)
     xmlHttp.onload = function (){
 
         image.src = URL.createObjectURL(this.response);
-
+        image.onload = ()=>{
+            URL.revokeObjectURL(image.src);
+        }
         end = new Date();
         let time = end.getTime()-start.getTime();
         console.log(time + ' ms [GET IMAGE]');
