@@ -1,5 +1,6 @@
 let image = document.getElementById('image');
-let start, end;
+let hertz = document.getElementById('hz');
+let start, end, sumTime = 0, counter = 0;
 
 class Token {
     constructor(accessToken, type, expireSec, scope, refreshToken, iat, exp) {
@@ -71,9 +72,13 @@ function getImg(ip, token)
         image.onload = ()=>{
             URL.revokeObjectURL(image.src);
         }
+
         end = new Date();
         let time = end.getTime()-start.getTime();
-        console.log(time + ' ms [GET IMAGE]');
+        sumTime += time;
+        counter++;
+        //console.log((sumTime/counter) + ' ms');
+        hertz.innerHTML = (1000/(sumTime/counter)).toFixed(3) + ' HZ';
 
         getImg(ip,token);
     }
