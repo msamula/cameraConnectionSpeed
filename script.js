@@ -36,7 +36,7 @@ function getToken(ip,cliId,cliSecret,user,password)
     return token;
 }
 
-async function fetchImage(ip, token, imgID)
+async function fetchImage(ip, token)
 {
     start = new Date();
 
@@ -49,10 +49,18 @@ async function fetchImage(ip, token, imgID)
 
     image.src = URL.createObjectURL(await response.blob());
 
-    end = new Date();
-    console.log(end.getTime() - start.getTime() + ' ms [FETCH IMAGE]');
+    image.onload = ()=>{
+        URL.revokeObjectURL(image.src);
+    }
 
-    await fetchImage(ip, token, imgID);
+    end = new Date();
+    let time = end.getTime()-start.getTime();
+    sumTime += time;
+    counter++;
+    //console.log((sumTime/counter) + ' ms');
+    hertz.innerHTML = (1000/(sumTime/counter)).toFixed(3) + ' HZ';
+
+    await fetchImage(ip, token);
 }
 
 function getImg(ip, token)
@@ -94,5 +102,5 @@ let ipAddress = '192.168.3.20'; //'192.168.3.20' 'localhost:8080'
 let token = getToken(ipAddress,'irsxApp', 'MnrY2L86pEQr53%216' /*MnrY2L86pEQr53!6*/, 'administrator', 'administrator');
 
 getImg(ipAddress,token.accessToken);
-//fetchImage(ipAddress,token.accessToken, 'image');
+//fetchImage(ipAddress,token.accessToken);
 
